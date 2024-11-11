@@ -103,15 +103,14 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# Autostart tmux
 if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
   tmux attach-session -t default || tmux new-session -s default
 fi
 
 alias get-music="yt-dlp -x -f bestaudio --audio-format mp3 --embed-thumbnail"
-alias music="cd ~/Folders/Personal/Music"
-alias taci24="cd ~/Folders/Personal/Music/Asculta si\ taci\ 2024"
-alias chill2="cd ~/Folders/Personal/Music/relax\ n\ chill\ \(era\ 2\)"
-alias config='/usr/bin/git --git-dir=/home/mogus/.cfg/ --work-tree=/home/mogus'
+alias music="cd $HOME/Folders/Personal/Music"
+alias config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
 
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 export TERMINAL=alacritty
