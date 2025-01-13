@@ -26,8 +26,9 @@ keymap.set("i", "<C-BS>", "<C-w>", opts)
 keymap.set("n", "<C-S-Tab>", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
 keymap.set("n", "<C-Tab>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 
--- Dashboard
-keymap.set("n", "<F1>", "<cmd>Dashboard<CR>", opts)
+-- Vim-tmux-runner
+vim.keymap.set("n", "<F1>", ":VtrSendFile!<CR>", opts)
+vim.keymap.set("i", "<F1>", "<Esc>:VtrSendFile!<CR>", opts)
 
 -- Navigate vim panes
 keymap.set("n", "<C-h>", ":wincmd h<CR>", opts)

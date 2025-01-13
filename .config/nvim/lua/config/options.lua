@@ -9,3 +9,4 @@ opt.backspace = { "start", "eol", "indent" }
 opt.autochdir = true
 
 -- vim.g.lazyvim_python_lsp = "pyright"
+-- vim.g.lazyvim_blink_main = false
