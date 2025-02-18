@@ -1,12 +1,17 @@
 return {
   "hrsh7th/nvim-cmp",
-  dependencies = { "micangl/cmp-vimtex" },
+  dependencies = {
+    "micangl/cmp-vimtex",
+  },
   opts = function(_, opts)
     local cmp = require("cmp")
+
     opts.completion = {
       completeopt = "menu,menuone,preview",
     }
-    table.insert(opts.sources, { name = "vimtex" })
+    opts.sources = cmp.config.sources({
+      { name = "vimtex" }, -- LaTeX completion
+    })
     opts.mapping = cmp.mapping.preset.insert({
       ["<C-Space>"] = cmp.mapping.complete(),
       ["<C-e"] = cmp.mapping.abort(),
