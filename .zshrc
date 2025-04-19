@@ -53,5 +53,7 @@ colored_man_pages="$HOME/.config/zsh/plugins/colored-man-pages.plugin.zsh"
 
 export STARSHIP_CONFIG=$HOME/.config/starship/starship.toml
 eval "$(starship init zsh)"
-# export PATH=$PATH:$HOME/.local/bin
+export PATH=$PATH:$HOME/.local/bin
 export PATH="$HOME/.npm-global/bin:$PATH"
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
