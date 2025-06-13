@@ -55,5 +55,10 @@ export STARSHIP_CONFIG=$HOME/.config/starship/starship.toml
 eval "$(starship init zsh)"
 export PATH=$PATH:$HOME/.local/bin
 export PATH="$HOME/.npm-global/bin:$PATH"
+export EDITOR=nvim
+
+export LYNX_CFG=$HOME/.config/lynx/lynx.cfg
+# export LYNX_LSS=$HOME/.config/lynx/lynx.lss
+# alias lynx="lynx -nocolor"
 # Set up fzf key bindings and fuzzy completion
 source <(fzf --zsh)

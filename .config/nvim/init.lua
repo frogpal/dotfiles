@@ -1,21 +1,53 @@
-require("config.lazy")
+-- Bootstrap lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+    local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+    local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+    if vim.v.shell_error ~= 0 then
+        vim.api.nvim_echo({
+            { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+            { out, "WarningMsg" },
+            { "\nPress any key to exit..." },
+        }, true, {})
+        vim.fn.getchar()
+        os.exit(1)
+    end
+end
+vim.opt.rtp:prepend(lazypath)
 
-vim.cmd.colorscheme "catppuccin-mocha"
-vim.wo.relativenumber = true
-vim.o.laststatus = 3
+-- Make sure to setup `mapleader` and `maplocalleader` before
+-- loading lazy.nvim so that mappings are correct.
+-- This is also a good place to setup other settings (vim.opt)
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
 
-vim.keymap.set('n', '<Leader>l', '<cmd>Lazy<Cr>', { desc = 'Open Lazy' })
-vim.keymap.set('n', '<Leader>cm', '<cmd>Mason<CR>', { desc = 'Open Mason' })
+require("keymaps")
+require("options")
+require("autocommands")
+-- require("ui")
 
--- vim.opt.clipboard "unnamedplus"
-vim.o.clipboard = "unnamedplus" 
--- When yanking something, I don't get that haptic feedback / highlight effect 
--- like in LazyVim. Look it up.
-vim.o.wrap = false -- Display lines as one uninterrupted long line
-vim.o.linebreak = true -- Prevent splitting words at the end of the line
+-- Setup lazy.nvim
+require("lazy").setup({
+    spec = {
+        { import = "plugins" },
+    },
+    install = { colorscheme = { "catppuccin-mocha" } },
+    checker = { enabled = false },
+})
 
-vim.cmd([[
-	set tabstop=4
-	set softtabstop=4
-	set shiftwidth=4
-]])
+vim.diagnostic.config({
+    virtual_text = {
+        spacing = 4,
+        source = "if_many",
+        prefix = "●",
+    },
+    severity_sort = true,
+    underline = true,
+})
+
+vim.lsp.config("*", {
+    capabilities = require("cmp_nvim_lsp").default_capabilities(),
+    root_markers = { ".git" },
+})
+
+vim.lsp.enable({ "lua_ls", "pyright", "intelephense", "html", "cssls", "ts_ls" })
