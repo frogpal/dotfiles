@@ -1,5 +1,0 @@
-require("options")
-require("core.lazy")
-require("keymaps")
-require("autocommands")
-require("remove_comments")
