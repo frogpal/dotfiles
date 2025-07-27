@@ -1,0 +1,112 @@
+" Colorscheme settings
+syntax on
+colorscheme catppuccin_mocha
+
+filetype on                 " enable filetype detection
+filetype plugin on          " load file-specific plugins
+filetype indent on          " load file-specific indentation
+
+set relativenumber
+set number
+set hidden                  " Switch to another buffer even if there are unsaved changes in the current buffer
+set shiftround              " Rounds the indentation to the nearest multiple of the shiftwidth when shifting lines
+set termguicolors           " Use true color support in the terminal
+set mouse=a                 " Enable the mouse
+set shiftwidth=4
+set tabstop=4
+set laststatus=2
+set foldmethod=indent
+set foldlevelstart=99
+set hlsearch incsearch      " Enable real-time search highlighting
+set ignorecase
+set clipboard=unnamedplus
+set scrolloff=3
+
+" Set leader and localleader bindings
+let mapleader = " "
+let maplocalleader = "\\"
+
+let g:tex_flavor="latex"    " Taken from https://www.reddit.com/r/vim/comments/apr054/vim_not_detecting_filetype_for_new_latex_files/
+let g:netrw_banner = 0      " Hide netrw top banner
+let g:netrw_winsize = 30    " Make netrw split take 30% of the screen
+let g:netrw_keepdir = 0     " Keep current directory and browsing directory synced
+
+nnoremap <silent> <leader><ESC> :noh<CR>
+vnoremap <leader>" <esc>`>a"<esc>`<i"<esc> 
+" Surround text with double quotes
+nnoremap <leader>m :silent make\|redraw!\|cc<CR>
+nnoremap <leader>g :silent execute "grep! -R " .. shellescape(expand("<cWORD>")) .. " ."<CR>:copen<CR> 
+nnoremap <leader>vb :browse oldfiles<CR>
+nnoremap <leader>e :Lexplore<CR>
+
+nnoremap <C-s> :w<CR>
+inoremap <C-s> <ESC>:w<CR>
+
+nnoremap <leader><leader> :buffers<CR>
+nnoremap <leader>bn :bnext<CR>
+nnoremap <leader>bp :bprevious<CR>
+nnoremap <leader>n :enew<CR>
+nnoremap <leader>bd :bdelete<CR>
+
+nnoremap <leader>nt :tabnew<CR>
+nnoremap <S-l> :tabnext<CR>
+nnoremap <S-h> :tabprevious<CR>
+
+" Scroll half a page with cursor centered. Recommended by the Primeagen, thx
+" https://youtu.be/KfENDDEpCsI?list=PLm323Lc7iSW_wuxqmKx_xxNtJC_hJbQ7R
+nnoremap <C-d> <C-d>zz<CR>
+nnoremap <C-u> <C-u>zz<CR>
+
+" Toggle line numbers on and off
+nnoremap <leader>N :setlocal number!<CR> 
+
+" Autocommands - press za inside {{{
+augroup my_autocmds
+    autocmd!
+    autocmd BufWritePre *.html :normal gg=G
+    autocmd BufEnter * silent! lcd %:p:h " Change working directory to the buffer location
+    autocmd FileType * nnoremap <silent><buffer> <leader>so :w<CR>:source%<CR>
+    autocmd FileType lua nnoremap <silent><buffer> <leader>so :w<CR>:luafile%<CR>
+augroup END
+
+augroup filetype_html
+    autocmd!
+    autocmd FileType html nnoremap <buffer> <localleader>f Vatzf
+augroup END
+
+augroup filetype_tex
+    autocmd!
+    autocmd FileType tex setlocal statusline=%f%=%y
+augroup END
+
+augroup filetype_vim
+    autocmd!
+    autocmd FileType vim setlocal foldmethod=marker
+augroup END
+" }}}
+
+function! FoldColumnToggle()
+    if &foldcolumn
+        setlocal foldcolumn=0
+    else
+        setlocal foldcolumn=4
+    endif
+endfunction
+
+nnoremap <leader>f :call FoldColumnToggle()<CR>
+
+let g:quickfix_is_open = 0
+
+function! QuickFixToggle()
+    if g:quickfix_is_open
+        cclose
+        let g:quickfix_is_open = 0
+        execute g:quickfix_return_to_window .. "wincmd w"
+    else
+        let g:quickfix_return_to_window = winnr()
+        copen 
+        let g:quickfix_is_open = 1
+    endif
+endfunction
+
+nnoremap <leader>q :call QuickFixToggle()<CR>
