@@ -1,14 +1,14 @@
 local my_group = vim.api.nvim_create_augroup("MyGroup", { clear = true })
-local enable_wrap = vim.api.nvim_create_augroup("EnableWrapForTextFiles", { clear = true })
 
 vim.api.nvim_create_autocmd("BufWritePre", {
     group = my_group,
     pattern = "*",
     callback = function(args)
-        require("conform").format({ bufnr = args.buf })
-
-        -- local path = vim.fn.expand("%:p:h")
-        -- vim.cmd("silent! lcd " .. path)
+        local conform_ok, conform = pcall(require, "conform")
+        if not (conform_ok and conform) then
+            return
+        end
+        conform.format({ bufnr = args.buf })
     end,
 })
 
@@ -22,18 +22,6 @@ vim.api.nvim_create_autocmd({ "TextYankPost" }, {
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
     group = my_group,
-    pattern = "lua",
-    callback = function()
-        vim.keymap.set("n", "<leader>so", ":luafile %<CR>", {
-            buffer = true,
-            silent = true,
-            desc = "Run current lua file",
-        })
-    end,
-})
-
-vim.api.nvim_create_autocmd({ "FileType" }, {
-    group = enable_wrap,
     pattern = { "markdown", "tex", "text", "srt" },
     callback = function()
         vim.opt_local.wrap = true
@@ -57,5 +45,31 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.keymap.set({ "n", "t" }, "[[", function()
             snacks.words.jump(-vim.v.count1)
         end, { buffer = bufnr, desc = "Prev Reference" })
+    end,
+})
+
+-- Create mapping to show/hide dot-files for mini.files
+local show_dotfiles = false
+
+local filter_show = function()
+    return true
+end
+
+local filter_hide = function(fs_entry)
+    return not vim.startswith(fs_entry.name, ".")
+end
+
+local toggle_dotfiles = function()
+    show_dotfiles = not show_dotfiles
+    local new_filter = show_dotfiles and filter_show or filter_hide
+    MiniFiles.refresh({ content = { filter = new_filter } })
+end
+
+vim.api.nvim_create_autocmd("User", {
+    pattern = "MiniFilesBufferCreate",
+    callback = function(args)
+        local buf_id = args.data.buf_id
+        -- Tweak left-hand side of mapping to your liking
+        vim.keymap.set("n", "g.", toggle_dotfiles, { buffer = buf_id })
     end,
 })

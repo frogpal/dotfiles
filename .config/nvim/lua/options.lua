@@ -1,25 +1,24 @@
 vim.wo.relativenumber = true
+vim.opt.number = true
 vim.o.laststatus = 3
+vim.opt.mouse = "a"
+vim.opt.showmode = false
+vim.o.clipboard = "unnamedplus"
 
+-- Netrw settings
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 30
 vim.g.netrw_keepdir = 0
 vim.g.netrw_liststyle = 3
 
-vim.o.clipboard = "unnamedplus"
-
 -- Indentation settings
-vim.opt.expandtab = true        -- Use spaces instead of tabs
-vim.o.shiftround = true         -- Round indent to nearest multiple
-vim.opt.shiftwidth = 4          -- Indent by 4 spaces
-vim.opt.softtabstop = 4         -- Tab inserts 4 spaces
-vim.opt.tabstop = 4             -- Visual width of tabs
+vim.opt.expandtab = true -- Use spaces instead of tabs
+vim.o.shiftround = true -- Round indent to nearest multiple
+vim.opt.shiftwidth = 4 -- Indent by 4 spaces
+vim.opt.softtabstop = 4 -- Tab inserts 4 spaces
+vim.opt.tabstop = 4 -- Visual width of tabs
 
 vim.g.have_nerd_font = true
-
-vim.opt.number = true
-vim.opt.mouse = "a"
--- vim.opt.showmode = false
 
 -- Display lines as one uninterrupted long line
 vim.opt.wrap = false
@@ -52,7 +51,7 @@ vim.opt.splitbelow = true
 
 -- Configure how to display empty characters like tabs or spaces
 vim.opt.list = true
-vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣"}
+vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 
 -- Show which line your cursor is on
 vim.opt.cursorline = true
@@ -69,3 +68,22 @@ vim.opt.conceallevel = 2
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldlevel = 99
+
+-- Disable partially entered commands in the status line
+vim.opt.showcmd = false
+
+-- Display column line
+vim.opt.colorcolumn = "120"
+
+-- Maximum popup height
+-- vim.opt.pumheight = 5
+
+-- Disable unused default plugins
+for _, plugin in pairs({
+    -- "netrwFileHandlers",
+    "2html_plugin",
+    "spellfile_plugin",
+    "matchit",
+}) do
+    vim.g["loaded_" .. plugin] = 1
+end

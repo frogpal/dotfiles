@@ -7,8 +7,10 @@ return {
         formatters_by_ft = {
             lua = { "stylua" },
             python = { "black" },
-            -- php = { "php_cs_fixer" },
-            html = { "prettier" },
+            html = { "prettierd", "prettier" },
+            css = { "prettierd", "prettier" },
+            javascript = { "deno_fmt" },
+            sh = { "shfmt" },
         },
         formatters = {
             stylua = {
@@ -29,9 +31,21 @@ return {
                 args = {
                     "--tab-width",
                     "4",
+                    "--print-width",
+                    "120",
                     "--stdin-filepath",
                     "$FILENAME",
                 },
+            },
+            deno_fmt = {
+                command = "deno",
+                args = {
+                    "fmt",
+                    "--indent-width=4",
+                    "--line-width=120",
+                    "-",
+                },
+                stdin = true,
             },
         },
     },

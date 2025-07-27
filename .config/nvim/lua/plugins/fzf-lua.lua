@@ -1,31 +1,14 @@
-return {}
--- return {
---     "ibhagwan/fzf-lua",
---     lazy = false,
---     -- optional for icon support
---     -- dependencies = { "nvim-tree/nvim-web-devicons" },
---     -- or if using mini.icons/mini.nvim
---     dependencies = { "echasnovski/mini.icons" },
---     opts = {
---         winopts = {
---             border = "single",
---             preview = {
---                 border = "single",
---             }
---         }
---     },
---     keys = {
---         { "<leader>fc", function()
---             require("fzf-lua").files({ cwd = vim.fn.stdpath("config") })
---         end, desc = "Find Config File" },
---         {
---             "<leader>,",
---             "<cmd>FzfLua buffers sort_lastused=true<cr>",
---             desc = "Switch Buffer",
---         },
---         {
---             "<leader>ff", "<cmd>FzfLua files<cr>", desc = "Find Files (Root Dir)",
---         },
---
---     }
--- }
+return {
+    "ibhagwan/fzf-lua",
+    cmd = "FzfLua",
+    lazy = false,
+    dependencies = { "echasnovski/mini.icons" },
+    opts = {
+        -- winopts = {
+        --     border = "single",
+        --     preview = {
+        --         border = "single",
+        --     }
+        -- }
+    },
+}
