@@ -12,8 +12,8 @@ dynamic_padding = true
 decorations = "None"
 
 [font]
-normal = { family = "RobotoMono Nerd Font", style = "Regular" }
+normal = { family = "JetBrainsMono Nerd Font", style = "Regular" }
 size = 11.00
 
-[terminal.shell]
-program = "tmux"
+# [terminal.shell]
+# program = "tmux"
