@@ -1,3 +1,5 @@
+# zsh plugins
+
 [".config/zsh/plugins/zsh-autosuggestions"]
 type = "git-repo"
 url = "https://github.com/zsh-users/zsh-autosuggestions.git"
@@ -13,7 +15,41 @@ type = "file"
 url = "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/refs/heads/master/plugins/colored-man-pages/colored-man-pages.plugin.zsh"
 refreshPeriod = "168h"
 
+# Catppuccin themes
+
 [".vim/colors/catppuccin_mocha.vim"]
 type = "file"
 url = "https://raw.githubusercontent.com/catppuccin/vim/refs/heads/main/colors/catppuccin_mocha.vim"
+refreshPeriod = "168h"
+
+[".config/qBittorrent/catppuccin-mocha.qbtheme"]
+type = "file"
+url = {{ gitHubLatestReleaseAssetURL "catppuccin/qbittorrent" "catppuccin-mocha.qbtheme" | quote }}
+refreshPeriod = "168h"
+
+[".config/alacritty/catppuccin-mocha.toml"]
+type = "file"
+url = "https://raw.githubusercontent.com/catppuccin/alacritty/main/catppuccin-mocha.toml"
+refreshPeriod = "168h"
+
+# mpv plugins
+
+[".config/mpv"]
+type = "archive"
+url = {{ gitHubLatestReleaseAssetURL "tomasklaen/uosc" "uosc.zip" | quote }}
+refreshPeriod = "168h"
+
+[".config/mpv/script-opts/uosc.conf"]
+type = "file"
+url = {{ gitHubLatestReleaseAssetURL "tomasklaen/uosc" "uosc.conf" | quote }}
+refreshPeriod = "168h"
+
+[".config/mpv/scripts/autoload.lua"]
+type = "file"
+url = "https://raw.githubusercontent.com/mpv-player/mpv/refs/heads/master/TOOLS/lua/autoload.lua"
+refreshPeriod = "168h"
+
+[".config/mpv/scripts/thumbfast.lua"]
+type = "file"
+url = "https://raw.githubusercontent.com/po5/thumbfast/refs/heads/master/thumbfast.lua"
 refreshPeriod = "168h"
