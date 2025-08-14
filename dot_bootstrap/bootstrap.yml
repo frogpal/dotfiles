@@ -1,0 +1,79 @@
+- name: Bootstrap dev environment
+  hosts: localhost
+  tasks:
+    - name: Install packages with pacman
+      become: yes
+      community.general.pacman:
+        name:
+          - alacritty
+          - chezmoi
+          - efibootmgr
+          - fd
+          - ffmpeg
+          - firefox
+          - fontconfig
+          - fzf
+          - git
+          - ivpn
+          - lazygit
+          - lm_sensors
+          - lua
+          - luajit
+          - man-db
+          - man-pages
+          - mpv
+          - neovim
+          - networkmanager
+          - nodejs
+          - npm
+          - pavucontrol
+          - pipewire
+          - python
+          - python-pipx
+          - qbittorrent
+          - ripgrep
+          - starship
+          - tldr
+          - tmux
+          - tree
+          - ttf-jetbrains-mono-nerd
+          - unrar
+          - unzip
+          - veracrypt
+          - vim
+          - wl-clipboard
+          - yt-dlp
+          - zsh
+        state: present
+      when: ansible_facts["os_family"] == "Archlinux"
+
+    - name: Change shell to zsh
+      become: yes
+      ansible.builtin.user:
+        name: "{{ ansible_user_id }}"
+        shell: "/bin/zsh"
+
+    - name: Install linters & formatters with pipx
+      loop:
+        - black
+        - flake8
+      community.general.pipx:
+        name: "{{ item }}"
+        state: present
+        executable: pipx
+
+    - name: Install npm global packages
+      loop:
+        - "@ansible/ansible-language-server"
+        - "@johnnymorganz/stylua-bin"
+        - "@fsouza/prettierd"
+        - prettier
+        - deno
+        - pyright
+        - intelephense
+        - live-server
+        # - "vite" https://www.npmjs.com/package/vite
+      community.general.npm:
+        name: "{{ item }}"
+        global: true
+        state: present
