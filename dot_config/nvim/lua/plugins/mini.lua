@@ -33,10 +33,13 @@ return {
         require("mini.move").setup()
         require("mini.statusline").setup()
         require("mini.splitjoin").setup()
+        require("mini.indentscope").setup({
+            symbol = "│",
+        })
     end,
     keys = {
         {
-            "<leader>e", -- TODO configure it to not open in terminal buffers
+            "<leader>e",
             function()
                 if not MiniFiles.close() then
                     -- Taken from https://github.com/echasnovski/mini.nvim/issues/1146

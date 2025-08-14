@@ -1,4 +1,4 @@
-vim.lsp.enable({ "lua_ls", "pyright", "intelephense", "html", "cssls", "ts_ls", "clangd" })
+vim.lsp.enable({ "lua_ls", "pyright", "intelephense", "html", "cssls", "ts_ls", "clangd", "ansiblels" })
 
 vim.diagnostic.config({
     signs = {
