@@ -7,7 +7,8 @@ km.set("n", "<Leader>l", "<cmd>Lazy<Cr>", { desc = "Open Lazy" })
 -- TODO add this to only .lua, .vim, .zshrc, .conf files (and maybe others?)
 km.set("n", "<leader>so", "<cmd>source%<cr>", { desc = "Source file" })
 
--- Buffers vim.keymap.set("n", "<leader>bn", "<cmd>bnext<cr>", { desc = "Next buffer" })
+-- Buffers
+km.set("n", "<leader>bn", "<cmd>bnext<cr>", { desc = "Next buffer" })
 km.set("n", "<leader>bp", "<cmd>bprevious<cr>", { desc = "Previous buffer" })
 km.set("n", "<leader>bd", "<cmd>bdelete<cr>", { desc = "Delete current buffer" })
 

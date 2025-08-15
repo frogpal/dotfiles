@@ -53,10 +53,11 @@
         name: "{{ ansible_user_id }}"
         shell: "/bin/zsh"
 
-    - name: Install linters & formatters with pipx
+    - name: Install pipx packages
       loop:
         - black
         - flake8
+        - ipython
       community.general.pipx:
         name: "{{ item }}"
         state: present

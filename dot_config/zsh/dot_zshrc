@@ -1,20 +1,18 @@
 # Performance optimization: Skip global compinit for faster startup
-skip_global_compinit=1
+# skip_global_compinit=1 # I probably don't need this
 
 # History settings
-HISTFILE=$HOME/.zsh_history
-SAVEHIST=10000
-HISTSIZE=10000
-setopt appendhistory
-setopt share_history
-setopt hist_ignore_space
-setopt hist_ignore_all_dups
-setopt hist_expire_dups_first
-setopt hist_verify
-setopt hist_reduce_blanks
-setopt hist_find_no_dups
+setopt APPEND_HISTORY
+setopt SHARE_HISTORY
+setopt HIST_IGNORE_SPACE
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_VERIFY
+setopt HIST_REDUCE_BLANKS
+setopt HIST_FIND_NO_DUPS
+unsetopt PROMPT_SP
 
-autoload -U colors && colors
+# autoload -U colors && colors
+autoload -U colors
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' menu select
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
@@ -33,29 +31,18 @@ bindkey "^[[1;5D" backward-word
 bindkey "^[[3~" delete-char # delete characters using the "delete" key
 bindkey "^C" autosuggest-clear
 
-# Environment variables
-export EDITOR=nvim
-export PAGER=less
-export BROWSER=firefox
-export LYNX_CFG=$HOME/.config/lynx/lynx.cfg
-
 # PATH management
 typeset -U PATH  # Remove duplicates from PATH
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.npm-global/bin:$PATH"
 
 # Aliases
 alias get-music="yt-dlp -x -f bestaudio --audio-format mp3 --embed-thumbnail"
 alias music="cd $HOME/Folders/Personal/Music"
-alias config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
-
-# Plugin management with better error handling
-ZSH_PLUGINS_DIR="$HOME/.config/zsh/plugins"
+alias ls='ls --color=auto'
 
 # Add completions to fpath
-if [[ -d "$ZSH_PLUGINS_DIR/zsh-completions/src" ]]; then
-    fpath=("$ZSH_PLUGINS_DIR/zsh-completions/src" $fpath)
-fi
+# if [[ -d "$ZSH_PLUGINS_DIR/zsh-completions/src" ]]; then
+#     fpath=("$ZSH_PLUGINS_DIR/zsh-completions/src" $fpath)
+# fi
 
 # Initialize completions
 autoload -Uz compinit
@@ -67,9 +54,10 @@ else
 fi
 
 plugins=(
-    "zsh-autosuggestions/zsh-autosuggestions.zsh"
+    "zsh-autosuggestions.zsh"
     "zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
     "colored-man-pages.plugin.zsh"
+    "colorize.plugin.zsh"
 )
 
 for plugin in "${plugins[@]}"; do
@@ -83,9 +71,9 @@ if command -v fzf &> /dev/null; then
 fi
 
 if command -v starship &> /dev/null; then
-    export STARSHIP_CONFIG=$HOME/.config/starship/starship.toml
+    export STARSHIP_CONFIG=$XDG_CONFIG_HOME/starship/starship.toml
     eval "$(starship init zsh)"
 fi
 
-# Local customizations (load last)
-[[ -f "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"
+# eval "$(starship init zsh)"
+

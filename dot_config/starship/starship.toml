@@ -15,7 +15,7 @@ $line_break\
 $character\
 """
 
-# palette = "catppuccin_mocha"
+palette = "catppuccin_mocha"
 add_newline = false
 
 # Disable the package module, hiding it from the prompt completely

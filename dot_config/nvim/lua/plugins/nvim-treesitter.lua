@@ -10,10 +10,10 @@ return {
             configs.setup({
                 ensure_installed = {
                     "bash",
+                    "css",
                     "diff",
                     "html",
                     "javascript",
-                    "css",
                     "jsdoc",
                     "json",
                     "jsonc",
