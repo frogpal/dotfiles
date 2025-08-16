@@ -1,6 +1,3 @@
-# Performance optimization: Skip global compinit for faster startup
-# skip_global_compinit=1 # I probably don't need this
-
 # History settings
 setopt APPEND_HISTORY
 setopt SHARE_HISTORY
@@ -36,13 +33,7 @@ typeset -U PATH  # Remove duplicates from PATH
 
 # Aliases
 alias get-music="yt-dlp -x -f bestaudio --audio-format mp3 --embed-thumbnail"
-alias music="cd $HOME/Folders/Personal/Music"
 alias ls='ls --color=auto'
-
-# Add completions to fpath
-# if [[ -d "$ZSH_PLUGINS_DIR/zsh-completions/src" ]]; then
-#     fpath=("$ZSH_PLUGINS_DIR/zsh-completions/src" $fpath)
-# fi
 
 # Initialize completions
 autoload -Uz compinit
@@ -74,6 +65,3 @@ if command -v starship &> /dev/null; then
     export STARSHIP_CONFIG=$XDG_CONFIG_HOME/starship/starship.toml
     eval "$(starship init zsh)"
 fi
-
-# eval "$(starship init zsh)"
-
