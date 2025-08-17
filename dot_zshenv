@@ -1,15 +1,23 @@
 export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"
+export XDG_CACHE_HOME="$HOME/.cache"
+
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export ZSH_PLUGINS_DIR="$XDG_CONFIG_HOME/zsh/plugins"
 
-export HISTFILE=$HOME/.zsh_history
+export HISTFILE=$ZDOTDIR/.zsh_history
 export SAVEHIST=10000
 export HISTSIZE=10000
 
-export EDITOR=nvim
-export PAGER=less
-export BROWSER=firefox
-export LYNX_CFG=$HOME/.config/lynx/lynx.cfg
+export EDITOR="nvim"
+export PAGER="less"
+export BROWSER="firefox"
+export LYNX_CFG="$XDG_CONFIG_HOME/lynx/lynx.cfg"
 
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.npm-global/bin:$PATH"
+
+export ZSH_COLORIZE_TOOL="chroma"
+export ZSH_COLORIZE_CHROMA_FORMATTER="terminal256"
+export ZSH_COLORIZE_STYLE="catppuccin-mocha"

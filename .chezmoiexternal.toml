@@ -22,24 +22,28 @@ exact = true
 stripComponents = 1
 refreshPeriod = "168h"
 exclude = [
-    "*/.editorconfig",
-    "*/.gitattributes",
-    "*/.github",
-    "*/.gitignore",
+    "**/.editorconfig",
+    "**/.gitattributes",
+    "**/.github",
+    "**/.gitignore",
+    "**/README.*",
+    "**/LICENSE*",
 ]
 
-# [".config/zsh/plugins/zsh-completions"]
-# type = "archive"
-# url = "https://github.com/zsh-users/zsh-completions/archive/master.tar.gz"
-# exact = true
-# stripComponents = 1
-# refreshPeriod = "168h"
-# exclude = [
-#     "*/.editorconfig",
-#     "*/.gitattributes",
-#     "*/.github",
-#     "*/.gitignore",
-# ]
+[".config/zsh/plugins/fzf-tab"]
+type = "archive"
+url = "https://github.com/Aloxaf/fzf-tab/archive/master.tar.gz"
+exact = true
+stripComponents = 1
+refreshPeriod = "168h"
+exclude = [
+    "**/.gitignore",
+    "**/.editorconfig",
+    "**/.github",
+    "**/.cvsignore",
+    "**/README.*",
+    "**/LICENSE*",
+]
 
 # Binaries
 
@@ -58,7 +62,7 @@ refreshPeriod = "168h"
 
 # Catppuccin themes
 
-[".vim/colors/catppuccin_mocha.vim"]
+[".config/vim/colors/catppuccin_mocha.vim"]
 type = "file"
 url = "https://raw.githubusercontent.com/catppuccin/vim/refs/heads/main/colors/catppuccin_mocha.vim"
 refreshPeriod = "168h"

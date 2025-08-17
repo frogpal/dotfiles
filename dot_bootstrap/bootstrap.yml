@@ -14,7 +14,6 @@
           - fontconfig
           - fzf
           - git
-          - ivpn
           - lazygit
           - lm_sensors
           - lua
@@ -33,7 +32,6 @@
           - qbittorrent
           - ripgrep
           - starship
-          - tldr
           - tmux
           - tree
           - ttf-jetbrains-mono-nerd
@@ -63,7 +61,17 @@
         state: present
         executable: pipx
 
-    - name: Install npm global packages
+    - name: Create npm global directory
+      ansible.builtin.file:
+        path: "~/.npm-global"
+        state: directory
+        mode: u+rwx,g+rx,o+rx
+
+    - name: Set npm global prefix
+      ansible.builtin.command:
+        cmd: "npm config set prefix '~/.npm-global'"
+
+    - name: install npm global packages
       loop:
         - "@ansible/ansible-language-server"
         - "@johnnymorganz/stylua-bin"

@@ -31,7 +31,7 @@ let g:netrw_banner = 0      " Hide netrw top banner
 let g:netrw_winsize = 30    " Make netrw split take 30% of the screen
 let g:netrw_keepdir = 0     " Keep current directory and browsing directory synced
 
-nnoremap <silent> <leader><ESC> :noh<CR>
+" nnoremap <silent> <leader><ESC> :noh<CR>
 vnoremap <leader>" <esc>`>a"<esc>`<i"<esc> 
 " Surround text with double quotes
 nnoremap <leader>m :silent make\|redraw!\|cc<CR>
@@ -110,3 +110,12 @@ function! QuickFixToggle()
 endfunction
 
 nnoremap <leader>q :call QuickFixToggle()<CR>
+
+" Create state directory and set viminfo location
+if !has('nvim')
+    let s:vim_state_dir = $HOME . '/.local/state/vim'
+    if !isdirectory(s:vim_state_dir)
+        call mkdir(s:vim_state_dir, 'p')
+    endif
+    execute 'set viminfo+=n' . s:vim_state_dir . '/viminfo'
+endif

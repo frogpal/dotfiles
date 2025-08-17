@@ -1,3 +1,6 @@
+# Performance optimization: Skip global compinit for faster startup
+# skip_global_compinit=1 # I probably don't need this
+
 # History settings
 setopt APPEND_HISTORY
 setopt SHARE_HISTORY
@@ -8,13 +11,16 @@ setopt HIST_REDUCE_BLANKS
 setopt HIST_FIND_NO_DUPS
 unsetopt PROMPT_SP
 
-# autoload -U colors && colors
-autoload -U colors
+autoload -U colors && colors
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-zstyle ':completion:*' menu select
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
-zstyle ':completion:*:descriptions' format '%F{cyan}%d%f'
+zstyle ':completion:*' list-colors '${(s.:.)LS_COLORS}'
+# zstyle ':completion:*:descriptions' format '%F{cyan}%d%f'
+zstyle ':completion:*:descriptions' format '[%d]'
 zstyle ':completion:*:warnings' format ' %F{red}-- no matches found --%f'
+
+zstyle ':completion:*:git-checkout:*' sort false
+zstyle ':completion:*' menu no
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color=always $realpath'
 
 # Make word movement behave like text editors
 autoload -U select-word-style
@@ -33,7 +39,13 @@ typeset -U PATH  # Remove duplicates from PATH
 
 # Aliases
 alias get-music="yt-dlp -x -f bestaudio --audio-format mp3 --embed-thumbnail"
+alias music="cd $HOME/Folders/Personal/Music"
+
 alias ls='ls --color=auto'
+# Add completions to fpath
+# if [[ -d "$ZSH_PLUGINS_DIR/zsh-completions/src" ]]; then
+#     fpath=("$ZSH_PLUGINS_DIR/zsh-completions/src" $fpath)
+# fi
 
 # Initialize completions
 autoload -Uz compinit
@@ -49,6 +61,7 @@ plugins=(
     "zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
     "colored-man-pages.plugin.zsh"
     "colorize.plugin.zsh"
+    "fzf-tab/fzf-tab.plugin.zsh"
 )
 
 for plugin in "${plugins[@]}"; do
@@ -65,3 +78,5 @@ if command -v starship &> /dev/null; then
     export STARSHIP_CONFIG=$XDG_CONFIG_HOME/starship/starship.toml
     eval "$(starship init zsh)"
 fi
+
+# eval "$(starship init zsh)"
