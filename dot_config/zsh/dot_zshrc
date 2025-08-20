@@ -1,7 +1,3 @@
-# Performance optimization: Skip global compinit for faster startup
-# skip_global_compinit=1 # I probably don't need this
-
-# History settings
 setopt APPEND_HISTORY
 setopt SHARE_HISTORY
 setopt HIST_IGNORE_SPACE
@@ -14,54 +10,50 @@ unsetopt PROMPT_SP
 autoload -U colors && colors
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors '${(s.:.)LS_COLORS}'
-# zstyle ':completion:*:descriptions' format '%F{cyan}%d%f'
 zstyle ':completion:*:descriptions' format '[%d]'
 zstyle ':completion:*:warnings' format ' %F{red}-- no matches found --%f'
 
 zstyle ':completion:*:git-checkout:*' sort false
 zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color=always $realpath'
+zstyle ':fzf-tab:*' use-fzf-default-opts yes
 
 # Make word movement behave like text editors
 autoload -U select-word-style
 select-word-style bash
 
-# Key bindings for command history navigation
+# Key bindings
 bindkey "^[[A" history-search-backward
 bindkey "^[[B" history-search-forward
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 bindkey "^[[3~" delete-char # delete characters using the "delete" key
-bindkey "^C" autosuggest-clear
+bindkey "^C" autosuggest-clear # CTRL+C
+bindkey '^ ' autosuggest-accept # CTRL+Space
+bindkey -v
 
 # PATH management
 typeset -U PATH  # Remove duplicates from PATH
 
 # Aliases
 alias get-music="yt-dlp -x -f bestaudio --audio-format mp3 --embed-thumbnail"
-alias music="cd $HOME/Folders/Personal/Music"
-
 alias ls='ls --color=auto'
-# Add completions to fpath
-# if [[ -d "$ZSH_PLUGINS_DIR/zsh-completions/src" ]]; then
-#     fpath=("$ZSH_PLUGINS_DIR/zsh-completions/src" $fpath)
-# fi
 
 # Initialize completions
 autoload -Uz compinit
 # Only run compinit once per day for better performance
-if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
-    compinit
-else
+if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh-24) ]]; then
     compinit -C
+else
+    compinit
 fi
 
 plugins=(
     "zsh-autosuggestions.zsh"
     "zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
     "colored-man-pages.plugin.zsh"
-    "colorize.plugin.zsh"
     "fzf-tab/fzf-tab.plugin.zsh"
+    "catppuccin-fzf-mocha.sh"
 )
 
 for plugin in "${plugins[@]}"; do
@@ -79,4 +71,23 @@ if command -v starship &> /dev/null; then
     eval "$(starship init zsh)"
 fi
 
-# eval "$(starship init zsh)"
+# Start the ssh-agent if not already running
+# if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+#     echo "running ssh agent"
+#     eval "$(ssh-agent -s)" > /dev/null
+# else 
+#     echo "nope, couldn't add ssh agent"
+# fi
+
+# Load SSH key if it exists and is not already loaded
+# SSH_KEY="$HOME/.ssh/id_ed25519"
+#
+# if [[ -f "$SSH_KEY" ]]; then
+#     if ! ssh-add -l | grep -q "$SSH_KEY"; then
+#         ssh-add "$SSH_KEY" > /dev/null 2>&1
+#     fi
+# fi
+
+# Autocomplete pipx commands
+eval "$(register-python-argcomplete pipx)"
+

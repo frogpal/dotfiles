@@ -5,6 +5,7 @@ export XDG_CACHE_HOME="$HOME/.cache"
 
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export ZSH_PLUGINS_DIR="$XDG_CONFIG_HOME/zsh/plugins"
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 
 export HISTFILE=$ZDOTDIR/.zsh_history
 export SAVEHIST=10000

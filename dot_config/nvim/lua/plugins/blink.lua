@@ -24,6 +24,9 @@ return {
                 border = "single",
             },
             documentation = {
+                auto_show = true,
+                auto_show_delay_ms = 500,
+                treesitter_highlighting = true,
                 window = {
                     border = "single",
                 },
@@ -32,9 +35,9 @@ return {
         appearance = {
             nerd_font_variant = "normal",
         },
-        enabled = function()
-            return not vim.tbl_contains({ "markdown", "text", "csv", "json", "xml" }, vim.bo.filetype)
-        end,
+        -- enabled = function()
+        --     return not vim.tbl_contains({ "markdown", "text", "csv", "json", "xml" }, vim.bo.filetype)
+        -- end,
         cmdline = {
             enabled = false,
         },

@@ -6,7 +6,7 @@ return {
     opts = {
         formatters_by_ft = {
             lua = { "stylua" },
-            python = { "black" },
+            python = { "ruff_format", "ruff_organize_imports" },
             html = { "prettierd", "prettier" },
             css = { "prettierd", "prettier" },
             javascript = { "deno_fmt" },

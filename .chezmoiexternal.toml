@@ -5,11 +5,6 @@ type = "file"
 url = "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/refs/heads/master/plugins/colored-man-pages/colored-man-pages.plugin.zsh"
 refreshPeriod = "168h"
 
-[".config/zsh/plugins/colorize.plugin.zsh"]
-type = "file"
-url = "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/refs/heads/master/plugins/colorize/colorize.plugin.zsh"
-refreshPeriod = "168h"
-
 [".config/zsh/plugins/zsh-autosuggestions.zsh"]
 type = "file"
 url = "https://raw.githubusercontent.com/zsh-users/zsh-autosuggestions/refs/heads/master/zsh-autosuggestions.zsh"
@@ -47,13 +42,6 @@ exclude = [
 
 # Binaries
 
-[".local/bin/chroma"]
-type = "archive-file"
-url = {{ gitHubLatestReleaseAssetURL "alecthomas/chroma" (printf "chroma-*-%s-%s.tar.gz" .chezmoi.os .chezmoi.arch) | quote }}
-executable = true
-path = "chroma"
-refreshPeriod = "168h"
-
 [".local/bin/shfmt"]
 type = "file"
 url = {{ gitHubLatestReleaseAssetURL "mvdan/sh" (printf "shfmt_v*_%s_%s" .chezmoi.os .chezmoi.arch) | quote }}
@@ -64,7 +52,7 @@ refreshPeriod = "168h"
 
 [".config/vim/colors/catppuccin_mocha.vim"]
 type = "file"
-url = "https://raw.githubusercontent.com/catppuccin/vim/refs/heads/main/colors/catppuccin_mocha.vim"
+url = "https://github.com/catppuccin/vim/raw/main/colors/catppuccin_mocha.vim"
 refreshPeriod = "168h"
 
 [".config/qBittorrent/catppuccin-mocha.qbtheme"]
@@ -74,7 +62,17 @@ refreshPeriod = "168h"
 
 [".config/alacritty/catppuccin-mocha.toml"]
 type = "file"
-url = "https://raw.githubusercontent.com/catppuccin/alacritty/main/catppuccin-mocha.toml"
+url = "https://github.com/catppuccin/alacritty/raw/main/catppuccin-mocha.toml"
+refreshPeriod = "168h"
+
+[".config/bat/themes/Catppuccin Mocha.tmTheme"]
+type = "file"
+url = "https://github.com/catppuccin/bat/raw/main/themes/Catppuccin%20Mocha.tmTheme"
+refreshPeriod = "168h"
+
+[".config/zsh/plugins/catppuccin-fzf-mocha.sh"]
+type = "file"
+url = "https://github.com/catppuccin/fzf/raw/main/themes/catppuccin-fzf-mocha.sh"
 refreshPeriod = "168h"
 
 # mpv plugins
