@@ -44,6 +44,7 @@
           - wl-clipboard
           - yt-dlp
           - zsh
+          - git-delta
         state: present
       when: ansible_facts["os_family"] == "Archlinux"
 

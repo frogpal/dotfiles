@@ -1,3 +1,22 @@
 [user]
     name = frogpal
     email = 130865296+frogpal@users.noreply.github.com
+
+[core]
+    ; Thanks https://github.com/dandavison/delta/issues/58#issuecomment-2200486153
+    pager = LESS='FR --redraw-on-quit' delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[include]
+    path = delta/themes/catppuccin.gitconfig
+
+[delta]
+    features = catppuccin-mocha
+    navigate = true  # use n and N to move between diff sections
+    line-numbers = true
+    side-by-side = true
+
+[merge]
+    conflictStyle = zdiff3
