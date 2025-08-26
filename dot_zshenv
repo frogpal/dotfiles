@@ -6,15 +6,15 @@ export XDG_CACHE_HOME="$HOME/.cache"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export ZSH_PLUGINS_DIR="$XDG_CONFIG_HOME/zsh/plugins"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
+export LYNX_CFG="$XDG_CONFIG_HOME/lynx/lynx.cfg"
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
 export HISTFILE=$ZDOTDIR/.zsh_history
 export SAVEHIST=10000
 export HISTSIZE=10000
 
 export EDITOR="nvim"
-export PAGER="less"
 export BROWSER="firefox"
-export LYNX_CFG="$XDG_CONFIG_HOME/lynx/lynx.cfg"
 
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.npm-global/bin:$PATH"

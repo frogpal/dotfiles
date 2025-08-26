@@ -25,6 +25,8 @@ select-word-style bash
 # Key bindings
 bindkey "^[[A" history-search-backward
 bindkey "^[[B" history-search-forward
+bindkey "^P" history-search-backward
+bindkey "^N" history-search-forward
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 bindkey "^[[3~" delete-char # delete characters using the "delete" key
@@ -61,15 +63,21 @@ for plugin in "${plugins[@]}"; do
     [[ -r "$plugin_path" ]] && source "$plugin_path"
 done
 
-# fzf integration (if available)
 if command -v fzf &> /dev/null; then
     source <(fzf --zsh)
+fi
+
+# Thanks https://github.com/starship/starship/issues/3418#issuecomment-2477375663
+if [[ "${widgets[zle-keymap-select]#user:}" == "starship_zle-keymap-select" || \
+      "${widgets[zle-keymap-select]#user:}" == "starship_zle-keymap-select-wrapped" ]]; then
+    zle -N zle-keymap-select "";
 fi
 
 if command -v starship &> /dev/null; then
     export STARSHIP_CONFIG=$XDG_CONFIG_HOME/starship/starship.toml
     eval "$(starship init zsh)"
 fi
+
 
 # Start the ssh-agent if not already running
 # if ! pgrep -u "$USER" ssh-agent > /dev/null; then
@@ -90,4 +98,3 @@ fi
 
 # Autocomplete pipx commands
 eval "$(register-python-argcomplete pipx)"
-
