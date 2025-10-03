@@ -40,6 +40,11 @@ exclude = [
     "**/LICENSE*",
 ]
 
+[".config/zsh/plugins/zsh-completions/_docker"]
+type = "file"
+url = "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/refs/heads/master/plugins/docker/completions/_docker"
+refreshPeriod = "168h"
+
 # Binaries
 
 [".local/bin/shfmt"]

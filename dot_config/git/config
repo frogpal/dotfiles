@@ -16,7 +16,6 @@
     features = catppuccin-mocha
     navigate = true  # use n and N to move between diff sections
     line-numbers = true
-    side-by-side = true
 
 [merge]
     conflictStyle = zdiff3

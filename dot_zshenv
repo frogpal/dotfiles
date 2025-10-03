@@ -3,11 +3,15 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_CACHE_HOME="$HOME/.cache"
 
-export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export ZSH_PLUGINS_DIR="$XDG_CONFIG_HOME/zsh/plugins"
+export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 export LYNX_CFG="$XDG_CONFIG_HOME/lynx/lynx.cfg"
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+export PIPX_HOME="$XDG_DATA_HOME/pipx"
+
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
 
 export HISTFILE=$ZDOTDIR/.zsh_history
 export SAVEHIST=10000
@@ -15,10 +19,16 @@ export HISTSIZE=10000
 
 export EDITOR="nvim"
 export BROWSER="firefox"
+export PROMPT_EOL_MARK="󰌑"
 
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.npm-global/bin:$PATH"
+export PATH="$HOME/bin:$PATH"
 
 export ZSH_COLORIZE_TOOL="chroma"
 export ZSH_COLORIZE_CHROMA_FORMATTER="terminal256"
 export ZSH_COLORIZE_STYLE="catppuccin-mocha"
+
+export LANG=en_US.UTF-8
+export LC_TIME=en_GB.UTF-8
+. "$HOME/.cargo/env"

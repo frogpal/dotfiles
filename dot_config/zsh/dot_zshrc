@@ -5,7 +5,6 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_VERIFY
 setopt HIST_REDUCE_BLANKS
 setopt HIST_FIND_NO_DUPS
-unsetopt PROMPT_SP
 
 autoload -U colors && colors
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
@@ -33,6 +32,7 @@ bindkey "^[[3~" delete-char # delete characters using the "delete" key
 bindkey "^C" autosuggest-clear # CTRL+C
 bindkey '^ ' autosuggest-accept # CTRL+Space
 bindkey -v
+bindkey -M vicmd ':' undefined-key # Disable confusing execute mode
 
 # PATH management
 typeset -U PATH  # Remove duplicates from PATH
@@ -41,14 +41,21 @@ typeset -U PATH  # Remove duplicates from PATH
 alias get-music="yt-dlp -x -f bestaudio --audio-format mp3 --embed-thumbnail"
 alias ls='ls --color=auto'
 
+# Add completions to fpath
+
+if [[ -d "$ZSH_PLUGINS_DIR/zsh-completions" ]]; then
+    fpath=("$ZSH_PLUGINS_DIR/zsh-completions" $fpath)
+fi
+
 # Initialize completions
 autoload -Uz compinit
+compinit
 # Only run compinit once per day for better performance
-if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh-24) ]]; then
-    compinit -C
-else
-    compinit
-fi
+# if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh-24) ]]; then
+#     compinit -C
+# else
+#     compinit
+# fi
 
 plugins=(
     "zsh-autosuggestions.zsh"
@@ -98,3 +105,7 @@ fi
 
 # Autocomplete pipx commands
 eval "$(register-python-argcomplete pipx)"
+
+# bun completions
+[ -s "/home/mogus/.bun/_bun" ] && source "/home/mogus/.bun/_bun"
+. "/home/mogus/.deno/env"
