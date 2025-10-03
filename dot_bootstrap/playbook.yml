@@ -7,14 +7,23 @@
         name:
           - alacritty
           - bat
+          - bat-extras
+          - calibre
           - chezmoi
+          - clang
+          - docker
+          - docker-compose
           - efibootmgr
+          - exiftool
+          - eza
           - fd
           - ffmpeg
           - firefox
           - fontconfig
           - fzf
           - git
+          - git-delta
+          - glances
           - lazygit
           - lm_sensors
           - lua
@@ -23,10 +32,12 @@
           - man-db
           - man-pages
           - mpv
+          - ncdu
           - neovim
           - networkmanager
           - nodejs
           - npm
+          - p7zip
           - pavucontrol
           - pipewire
           - python
@@ -34,6 +45,7 @@
           - qbittorrent
           - ripgrep
           - starship
+          - syncthing
           - tmux
           - tree
           - ttf-jetbrains-mono-nerd
@@ -43,8 +55,9 @@
           - vim
           - wl-clipboard
           - yt-dlp
+          - zathura
+          - zathura-pdf-poppler
           - zsh
-          - git-delta
         state: present
       when: ansible_facts["os_family"] == "Archlinux"
 
@@ -56,10 +69,12 @@
 
     - name: Install pipx packages
       loop:
-        - ruff
+        - "git+https://github.com/johnnymorganz/stylua"
         - ipython
+        - ruff
         - trash-cli
         - "trash-cli[completion]"
+        - "yt-dlp[default]"
       community.general.pipx:
         name: "{{ item }}"
         state: present
@@ -68,15 +83,22 @@
     - name: install npm global packages
       loop:
         - "@ansible/ansible-language-server"
-        - "@johnnymorganz/stylua-bin"
-        - "@fsouza/prettierd"
-        - prettier
-        - deno
-        - pyright
+        # - deno
+        - emmet-ls
+        # - "@fsouza/prettierd"
         - intelephense
+        # - "@johnnymorganz/stylua-bin"
         - live-server
+        # - prettier
+        # - pyright
+        - typescript
+        - typescript-language-server
+        - vim-language-server
+        - vscode-langservers-extracted
         # - "vite" https://www.npmjs.com/package/vite
       community.general.npm:
         name: "{{ item }}"
         global: true
         state: present
+
+# todo: add deno's install script to ansible, and perhaps bun too.
