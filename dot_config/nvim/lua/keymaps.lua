@@ -29,8 +29,23 @@ km.set("n", "<Up>", "v:count == 0 ? 'gk' : 'k'", { desc = "Up  ", expr = true, s
 
 -- LSP
 km.set("n", "K", function()
-    vim.lsp.buf.hover({ border = "rounded" })
-end, { silent = true })
+    local status, lspsaga = pcall(require, "lspsaga")
+    if not status then
+        vim.lsp.buf.hover({
+            border = "rounded",
+            max_width = 80,
+        })
+    end
+    vim.cmd("Lspsaga hover_doc")
+end, { silent = false })
+
+km.set("n", "L", function()
+    vim.lsp.buf.hover({
+        border = "rounded",
+        max_width = 80,
+    })
+end)
+
 -- vim.keymap.set("n", "<C-k>", function()
 --     vim.lsp.buf.signature_help({ border = "rounded" })
 -- end, { silent = true })
@@ -41,7 +56,7 @@ km.set("n", "<leader>ca", function()
     vim.lsp.buf.code_action()
 end, { desc = "Code Action" })
 
-km.set("n", "<leader>sv", "<cmd>vsplit<cr>", { desc = "Split vertically  ", silent = true })
+km.set("n", "<leader>sv", "<cmd>vsplit<cr>", { desc = "Split vertically", silent = true })
 km.set("n", "<leader>sh", "<cmd>split<cr> ", { desc = "Split horizontally", silent = true })
 
 km.set("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
@@ -72,6 +87,7 @@ km.set("n", "<leader>gb", fzf.git_branches, { desc = "Git Branches" })
 
 km.set("n", "<leader>sk", fzf.keymaps, { desc = "Search Keymaps" })
 km.set("n", "<leader>ff", fzf.files, { desc = "Fzf Files" })
+km.set("n", "<leader><leader>", fzf.files, { desc = "Fzf Files" })
 km.set("n", "<leader>,", fzf.buffers, { desc = "switch Buffer" })
 
 km.set("n", "<leader>fc", function()
@@ -99,3 +115,17 @@ km.set("n", "<leader>cm", "<cmd>Mason<cr>", { desc = "Mason" })
 -- Search within selection. Taken from https://www.reddit.com/r/neovim/comments/1kv7som/search_within_selection_in_neovim/
 km.set("x", "z/", "<C-\\><C-n>`</\\%V", { desc = "Search forward within visual selection" })
 km.set("x", "z?", "<C-\\><C-n>`>?\\%V", { desc = "Search backward within visual selection" })
+
+local function chezmoi_files()
+    require("fzf-lua").fzf_exec("chezmoi managed --path-style absolute --include files --exclude externals", {
+        previewer = "builtin",
+        actions = require("fzf-lua").defaults.actions.files,
+        fzf_opts = {
+            ["--multi"] = true,
+        },
+    })
+end
+
+km.set("n", "<leader>fz", chezmoi_files, { desc = "Find chezmoi files" })
+
+km.set("n", "<leader>ci", "<cmd>ConformInfo<cr>", { desc = "Run ConformInfo" })

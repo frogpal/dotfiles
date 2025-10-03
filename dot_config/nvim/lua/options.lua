@@ -17,6 +17,11 @@ vim.o.shiftround = true -- Round indent to nearest multiple
 vim.opt.shiftwidth = 4 -- Indent by 4 spaces
 vim.opt.softtabstop = 4 -- Tab inserts 4 spaces
 vim.opt.tabstop = 4 -- Visual width of tabs
+-- vim.opt.autoindent = true
+vim.opt.smartindent = true
+vim.g.html_indent_inctags = "html,body,head,tbody"
+vim.g.html_indent_script1 = "inc"
+vim.g.html_indent_style1 = "inc"
 
 vim.g.have_nerd_font = true
 
@@ -66,7 +71,8 @@ vim.opt.conceallevel = 2
 
 -- Folding options
 vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+-- vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+-- vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldlevel = 99
 
 -- Disable partially entered commands in the status line

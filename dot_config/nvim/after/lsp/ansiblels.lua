@@ -1,17 +1,13 @@
+local function get_ansible_python()
+    local pipx_home = os.getenv("PIPX_HOME") or (os.getenv("HOME") .. ".local/share/pipx")
+    return pipx_home .. "/venvs/ansible/bin/python"
+end
+
 return {
-    cmd = { "ansible-language-server", "--stdio" },
-    filetypes = { "yaml", "yml", "ansible" },
-    root_markers = { "ansible.cfg", ".ansible-lint" },
     settings = {
         ansible = {
-            ansible = {
-                path = "ansible",
-            },
-            executionEnvironment = {
-                enabled = false,
-            },
             python = {
-                interpreterPath = "python",
+                interpreterPath = get_ansible_python(),
             },
             validation = {
                 enabled = false,

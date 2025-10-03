@@ -1,4 +1,22 @@
-vim.lsp.enable({ "lua_ls", "pyright", "intelephense", "html", "cssls", "ts_ls", "clangd", "ansiblels" })
+vim.lsp.enable({
+    "lua_ls",
+    "basedpyright",
+    "intelephense",
+    "html",
+    "cssls",
+    "ts_ls",
+    "clangd",
+    "ansiblels",
+    -- "dockerls",
+    -- "emmet_ls",
+    "ruff",
+    "vimls",
+    -- "texlab",
+})
+
+vim.lsp.config("*", {
+    capabilities = require("blink.cmp").get_lsp_capabilities(),
+})
 
 vim.diagnostic.config({
     signs = {
@@ -17,9 +35,4 @@ vim.diagnostic.config({
     },
     severity_sort = true,
     underline = true,
-})
-
-vim.lsp.config("*", {
-    capabilities = require("blink.cmp").get_lsp_capabilities(),
-    root_markers = { ".git" },
 })

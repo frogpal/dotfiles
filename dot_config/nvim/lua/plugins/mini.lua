@@ -1,8 +1,7 @@
 return {
-    "echasnovski/mini.nvim",
+    "nvim-mini/mini.nvim",
     version = false,
     lazy = false,
-    opts = {},
     config = function()
         require("mini.files").setup({
             options = {

@@ -7,16 +7,22 @@ return {
         formatters_by_ft = {
             lua = { "stylua" },
             python = { "ruff_format", "ruff_organize_imports" },
-            html = { "prettierd", "prettier" },
-            css = { "prettierd", "prettier" },
-            javascript = { "deno_fmt" },
             sh = { "shfmt" },
+            html = { "deno_fmt" },
+            css = { "deno_fmt" },
+            javascript = { "deno_fmt" },
+            typescript = { "deno_fmt" },
+            json = { "deno_fmt" },
+            jsonc = { "deno_fmt" },
+            -- markdown = { "deno_fmt" },
         },
         formatters = {
             stylua = {
-                prepend_args = function(bufnr)
-                    local shiftwidth = vim.opt_local.shiftwidth[bufnr] or vim.opt.shiftwidth:get()
-                    local expandtab = vim.opt_local.expandtab[bufnr] or vim.opt.expandtab:get()
+                prepend_args = function()
+                    local shiftwidth = vim.api.nvim_get_option_value("shiftwidth", { scope = "local" })
+                        or vim.api.nvim_get_option_value("shiftwidth", { scope = "global" })
+                    local expandtab = vim.api.nvim_get_option_value("expandtab", { scope = "local" })
+                        or vim.api.nvim_get_option_value("expandtab", { scope = "global" })
                     return {
                         "--indent-type",
                         expandtab and "Spaces" or "Tabs",
@@ -25,27 +31,15 @@ return {
                     }
                 end,
             },
-            prettier = {
-                inherit = false,
-                command = "prettier",
-                args = {
-                    "--tab-width",
-                    "4",
-                    "--print-width",
-                    "120",
-                    "--stdin-filepath",
-                    "$FILENAME",
-                },
-            },
             deno_fmt = {
-                command = "deno",
-                args = {
-                    "fmt",
-                    "--indent-width=4",
-                    "--line-width=120",
-                    "-",
-                },
-                stdin = true,
+                append_args = function()
+                    local indentwidth = vim.api.nvim_get_option_value("shiftwidth", { scope = "local" })
+                        or vim.api.nvim_get_option_value("shiftwidth", { scope = "global" })
+                    return {
+                        "--indent-width",
+                        indentwidth,
+                    }
+                end,
             },
         },
     },
