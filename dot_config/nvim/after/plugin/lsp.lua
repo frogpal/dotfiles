@@ -4,6 +4,7 @@ vim.lsp.enable({
     "intelephense",
     "html",
     "cssls",
+    "tailwindcss",
     "ts_ls",
     "clangd",
     "ansiblels",

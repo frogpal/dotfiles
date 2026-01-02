@@ -12,9 +12,9 @@ km.set("n", "<leader>bn", "<cmd>bnext<cr>", { desc = "Next buffer" })
 km.set("n", "<leader>bp", "<cmd>bprevious<cr>", { desc = "Previous buffer" })
 km.set("n", "<leader>bd", "<cmd>bdelete<cr>", { desc = "Delete current buffer" })
 
-km.set("n", "<S-h>", "<cmd>tabprevious<cr>", { desc = "Previous tab" })
-km.set("n", "<S-l>", "<cmd>tabnext<cr>", { desc = "Next tab" })
-km.set("i", "<C-BS>", "<C-W>", { desc = "Delete previous word" })
+km.set("n", "<leader>tN", "<cmd>tabnew<cr>", { desc = "New tab" })
+km.set("n", "<leader>tn", "<cmd>tabnext<cr>", { desc = "Next tab" })
+km.set("n", "<leader>tp", "<cmd>tabprevious<cr>", { desc = "Previous tab" })
 
 -- Clear highlights on search when pressing <Esc> in normal mode
 km.set("n", "<esc>", "<cmd>nohlsearch<cr>", { desc = "Clear highlights" })
@@ -35,8 +35,9 @@ km.set("n", "K", function()
             border = "rounded",
             max_width = 80,
         })
+    else
+        vim.cmd("Lspsaga hover_doc")
     end
-    vim.cmd("Lspsaga hover_doc")
 end, { silent = false })
 
 km.set("n", "L", function()
@@ -113,8 +114,8 @@ km.set("n", "<leader>pc", fzf.colorschemes, { desc = "Pick Colorscheme" })
 km.set("n", "<leader>cm", "<cmd>Mason<cr>", { desc = "Mason" })
 
 -- Search within selection. Taken from https://www.reddit.com/r/neovim/comments/1kv7som/search_within_selection_in_neovim/
-km.set("x", "z/", "<C-\\><C-n>`</\\%V", { desc = "Search forward within visual selection" })
-km.set("x", "z?", "<C-\\><C-n>`>?\\%V", { desc = "Search backward within visual selection" })
+-- km.set("x", "z/", "<C-\\><C-n>`</\\%V", { desc = "Search forward within visual selection" })
+-- km.set("x", "z?", "<C-\\><C-n>`>?\\%V", { desc = "Search backward within visual selection" })
 
 local function chezmoi_files()
     require("fzf-lua").fzf_exec("chezmoi managed --path-style absolute --include files --exclude externals", {
@@ -129,3 +130,5 @@ end
 km.set("n", "<leader>fz", chezmoi_files, { desc = "Find chezmoi files" })
 
 km.set("n", "<leader>ci", "<cmd>ConformInfo<cr>", { desc = "Run ConformInfo" })
+
+km.set("n", "<leader>fd", "<cmd>DBUIToggle<cr>", { desc = "Toggle DBUI" })

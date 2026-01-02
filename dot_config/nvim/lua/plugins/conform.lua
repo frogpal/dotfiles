@@ -14,6 +14,7 @@ return {
             typescript = { "deno_fmt" },
             json = { "deno_fmt" },
             jsonc = { "deno_fmt" },
+            -- sql = { "sqlfmt" },
             -- markdown = { "deno_fmt" },
         },
         formatters = {

@@ -22,7 +22,7 @@ vim.api.nvim_create_autocmd({ "TextYankPost" }, {
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
     group = my_group,
-    pattern = { "markdown", "tex", "text", "srt" },
+    pattern = { "markdown", "tex", "text", "srt", "dbout" },
     callback = function()
         vim.opt_local.wrap = true
     end,

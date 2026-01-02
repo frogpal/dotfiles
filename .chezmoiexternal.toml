@@ -45,6 +45,14 @@ type = "file"
 url = "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/refs/heads/master/plugins/docker/completions/_docker"
 refreshPeriod = "168h"
 
+[".config/zsh/plugins/zsh-completions/_yt-dlp"]
+type = "archive-file"
+url = "https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.tar.gz"
+exact = true
+stripComponents = 1
+path = "completions/zsh/_yt-dlp"
+
+
 # Binaries
 
 [".local/bin/shfmt"]

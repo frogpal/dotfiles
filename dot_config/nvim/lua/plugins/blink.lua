@@ -4,7 +4,9 @@ return {
     event = "InsertEnter",
     opts = {
         sources = {
-            default = { "lsp", "path", "snippets", "buffer" },
+            per_filetype = {
+                sql = { "snippets", "dadbod", "buffer" },
+            },
             providers = {
                 snippets = {
                     -- HIDE SNIPPETS AFTER TRIGGER CHARACTER
@@ -12,6 +14,7 @@ return {
                         return ctx.trigger.initial_kind ~= "trigger_character"
                     end,
                 },
+                dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
             },
         },
         keymap = {
@@ -25,7 +28,7 @@ return {
                 show_on_trigger_character = true,
             },
             keyword = {
-                range = "full",
+                range = "prefix",
             },
             list = {
                 max_items = 500,
@@ -39,7 +42,7 @@ return {
                     treesitter = { "lsp" },
                     columns = {
                         { "label", "label_description", gap = 1 },
-                        { "kind_icon", "kind" },
+                        { "kind_icon", "kind", "source_name", gap = 1 },
                     },
                 },
                 border = "single",
@@ -55,14 +58,12 @@ return {
         },
         fuzzy = {
             implementation = "prefer_rust_with_warning",
-            sorts = {
-                "score",
-                "sort_text",
-                "label",
-            },
-        },
-        appearance = {
-            nerd_font_variant = "normal",
+            -- sorts = {
+            --     "exact",
+            --     "score",
+            --     "sort_text",
+            --     "label",
+            -- },
         },
         enabled = function()
             return not vim.tbl_contains({ "markdown", "text", "csv", "json", "xml", "tex" }, vim.bo.filetype)
@@ -71,4 +72,25 @@ return {
             enabled = false,
         },
     },
+    config = function(_, opts)
+        require("blink.cmp").setup(opts)
+        local source_priority = {
+            snippets = 4,
+            lsp = 3,
+            path = 2,
+            buffer = 1,
+        }
+        opts.fuzzy.sorts = {
+            function(a, b)
+                local a_priority = source_priority[a.source_id]
+                local b_priority = source_priority[b.source_id]
+                if a_priority ~= b_priority then
+                    return a_priority > b_priority
+                end
+            end,
+            -- defaults
+            "score",
+            "sort_text",
+        }
+    end,
 }

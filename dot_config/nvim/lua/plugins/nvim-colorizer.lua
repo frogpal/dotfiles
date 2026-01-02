@@ -16,6 +16,7 @@ return {
                 update_names = true,
             },
             sass = { enable = true, parsers = { "css" } },
+            mode = "virtualtext",
         },
     },
 }

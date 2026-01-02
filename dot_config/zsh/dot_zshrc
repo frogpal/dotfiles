@@ -40,6 +40,7 @@ typeset -U PATH  # Remove duplicates from PATH
 # Aliases
 alias get-music="yt-dlp -x -f bestaudio --audio-format mp3 --embed-thumbnail"
 alias ls='ls --color=auto'
+alias memes="cd ~/Folders/Syncthing/memes"
 
 # Add completions to fpath
 

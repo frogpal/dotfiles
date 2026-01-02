@@ -79,14 +79,21 @@ vim.opt.foldlevel = 99
 vim.opt.showcmd = false
 
 -- Display column line
-vim.opt.colorcolumn = "120"
+-- vim.opt.colorcolumn = "120"
 
 -- Maximum popup height
 -- vim.opt.pumheight = 5
 
 -- Disable unused default plugins
 for _, plugin in pairs({
-    -- "netrwFileHandlers",
+    "gzip",
+    -- "netrwPlugin",
+    "rplugin",
+    "tarPlugin",
+    "tohtml",
+    "tutor",
+    "zipPlugin",
+    "netrwFileHandlers",
     "2html_plugin",
     "spellfile_plugin",
     "matchit",

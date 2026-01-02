@@ -3,9 +3,9 @@ return {
     priority = 1000,
     lazy = false,
     opts = {
-        bigfile = { enabled = true },
+        -- bigfile = { enabled = true },
         dashboard = {
-            enabled = true,
+            enabled = false,
             preset = {
                 keys = {
                     { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
